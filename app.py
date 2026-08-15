@@ -1,20 +1,20 @@
 import streamlit as st
 import json
 import os
-from openai import OpenAI
+from groq import Groq
 
 st.set_page_config(page_title="BudgetGourmet IA - Carrefour Market", page_icon="🛒", layout="wide")
 
-# --- Gestion sécurisée de la clé API OpenAI ---
+# --- Gestion de la clé API Groq ---
 api_key = None
-if "OPENAI_API_KEY" in st.secrets:
-    api_key = st.secrets["OPENAI_API_KEY"]
-elif os.getenv("OPENAI_API_KEY"):
-    api_key = os.getenv("OPENAI_API_KEY")
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+elif os.getenv("GROQ_API_KEY"):
+    api_key = os.getenv("GROQ_API_KEY")
 
-client = OpenAI(api_key=api_key) if api_key else None
+client = Groq(api_key=api_key) if api_key else None
 
-# --- Chargement sécurisé des produits ---
+# --- Chargement des produits ---
 @st.cache_data
 def charger_produits():
     if os.path.exists("produits_locaux.json"):
@@ -30,19 +30,16 @@ produits = charger_produits()
 
 # --- Interface Utilisateur ---
 st.title("🤖 Générateur de Recettes & Macros par IA")
-st.caption("Recettes basées sur les produits disponibles chez Carrefour Market")
+st.caption("Recettes gratuites basées sur les produits disponibles chez Carrefour Market")
 
-# Message si aucun produit trouvé
 if not produits:
     st.info("ℹ️ Aucun produit trouvé dans `produits_locaux.json` ou le fichier n'est pas encore présent sur GitHub.")
 
-# Barre latérale : Préférences
 st.sidebar.header("🎯 Préférences")
 objectif = st.sidebar.selectbox("Objectif nutritionnel", ["Prise de masse (Riche en protéines)", "Sèche / Maintien (Équilibré)", "Économique & Rapide"])
 nb_recettes = st.sidebar.slider("Nombre de recettes à générer", 1, 5, 3)
 
 def generer_recettes_avec_ia(liste_produits, objectif, count):
-    # Extrait un échantillon des ingrédients
     ingredients_dispo = [f"{p.get('item', '')} ({p.get('prix', '')}€)" for p in liste_produits[:40]] if liste_produits else ["Poulet", "Riz", "Légumes", "Œufs"]
     
     prompt = f"""
@@ -53,7 +50,7 @@ def generer_recettes_avec_ia(liste_produits, objectif, count):
     Génère {count} recettes uniques adaptées à l'objectif : '{objectif}'.
     Attention : STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
 
-    Réponds STRICTEMENT sous forme d'un objet JSON contenant une liste "recettes" avec ce format :
+    Réponds STRICTEMENT sous forme d'un objet JSON valide contenant une liste "recettes" avec ce format :
     {{
       "recettes": [
         {{
@@ -74,7 +71,7 @@ def generer_recettes_avec_ia(liste_produits, objectif, count):
     """
 
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"}
     )
@@ -83,12 +80,12 @@ def generer_recettes_avec_ia(liste_produits, objectif, count):
     data = json.loads(contenu)
     return data.get("recettes", [])
 
-# Verification de la clé API
+# Vérification de la clé API
 if not api_key:
-    st.error("🔑 Clé API OpenAI introuvable. Veuillez ajouter `OPENAI_API_KEY` dans les **Secrets** de Streamlit (Settings ⚙️ -> Secrets).")
+    st.error("🔑 Clé API Groq introuvable. Veuillez ajouter `GROQ_API_KEY` dans les **Secrets** de Streamlit (Settings ⚙️ -> Secrets).")
 else:
     if st.button("🚀 Générer mes recettes avec les prix en direct", type="primary"):
-        with st.spinner("L'IA concocte vos recettes et calcule les macros..."):
+        with st.spinner("L'IA (Groq) concocte vos recettes et calcule les macros..."):
             try:
                 recettes_ia = generer_recettes_avec_ia(produits, objectif, nb_recettes)
                 st.session_state["recettes_ia"] = recettes_ia
@@ -99,10 +96,8 @@ else:
 if "recettes_ia" in st.session_state:
     for recette in st.session_state["recettes_ia"]:
         with st.expander(f"📖 **{recette.get('nom', 'Recette')}** — ~{recette.get('prix_estime', 0):.2f} € ({recette.get('temps', '15 min')})", expanded=True):
-            
             st.write("**Ingrédients :** " + ", ".join(recette.get('ingredients', [])))
             st.write("**Préparation :** " + recette.get('instructions', ''))
-            
             st.markdown("---")
             st.caption("📊 **Macronutriments (par portion) :**")
             
