@@ -116,11 +116,11 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
     Exemples d'ingrédients Carrefour : {json.dumps(ingredients_dispo, ensure_ascii=False)}
 
     RÈGLES IMPÉRATIVES :
-    1. Le tableau "recettes" doit contenir STRICTEMENT {count} éléments, pas un de moins ni un de plus.
+    1. Le tableau "recettes" doit contenir STRICTEMENT {count} éléments.
     2. Recettes simples mais gourmandes (wraps, pâtes sauce maison, quesadillas, riz sauté, omelette garnie, gratins rapides). Pas de plats complexes, pas de riz nature triste.
     3. STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
-    4. Pour "keyword_photo", choisis STRICTEMENT UN SEUL mot dans cette liste exacte : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza", "eggs", "salad", "wrap"].
-    5. Sois direct et concis dans les instructions pour garantir la génération complète des {count} repas.
+    4. "prompt_image_en" : Fournis une description courte en anglais du plat pour un générateur d'images IA (ex: "delicious chicken wrap with sauce", "creamy pasta bowl").
+    5. Instructions concises pour garantir la génération complète des {count} repas.
 
     Format JSON attendu :
     {{
@@ -128,7 +128,7 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
         {{
           "id": 1,
           "nom": "Wrap Poulet Épicé",
-          "keyword_photo": "wrap",
+          "prompt_image_en": "tasty chicken wrap with cheese and sauce",
           "temps": "15 min",
           "prix_estime": 2.80,
           "ingredients": [
@@ -156,12 +156,11 @@ def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
     Génère 1 seul plat étudiant simple et gourmand pour remplacer '{recette_ancienne.get('nom')}'.
     Budget cible : ~{budget_cible:.2f} €. Objectif : '{objectif}'.
     STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
-    "keyword_photo" doit être un seul mot parmi : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza", "eggs", "salad", "wrap"].
 
     JSON strict :
     {{
       "nom": "Pâtes crémeuses au poulet",
-      "keyword_photo": "pasta",
+      "prompt_image_en": "creamy chicken pasta bowl food photography",
       "temps": "15 min",
       "prix_estime": {budget_cible},
       "ingredients": [
@@ -229,9 +228,10 @@ if "menu" in st.session_state and st.session_state["menu"]:
         for idx, r in enumerate(recettes):
             with cols[idx % 3]:
                 with st.container(border=True):
-                    # Génération d'image Unsplash ciblée
-                    kw = str(r.get("keyword_photo", "food")).lower().strip()
-                    img_url = f"https://source.unsplash.com/600x400/?{urllib.parse.quote(kw)},food&sig={idx}"
+                    # Génération d'image par IA (Pollinations AI)
+                    prompt_img = r.get("prompt_image_en", r.get("nom", "delicious food"))
+                    prompt_clean = f"appetizing food photo of {prompt_img}, studio lighting, high resolution"
+                    img_url = f"https://image.pollinations.ai/prompt/{urllib.parse.quote(prompt_clean)}?width=600&height=400&nologo=true"
                     
                     st.image(img_url, use_container_width=True)
 
