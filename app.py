@@ -104,34 +104,36 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
     ingredients_dispo = (
         [f"{p.get('item', '')} ({p.get('prix', '')}€)" for p in liste_produits[:40]]
         if liste_produits
-        else ["Poulet", "Riz", "Légumes", "Œufs", "Pâtes"]
+        else ["Poulet", "Riz", "Légumes", "Œufs", "Pâtes", "Bœuf"]
     )
 
     prompt = f"""
-    Tu es un chef cuisinier. Génère EXACTEMENT {count} repas uniques pour un budget TOTAL max de {budget} € (~{budget/count:.2f} €/repas).
+    Tu es un chef cuisinier gastronomique expert. Génère EXACTEMENT {count} repas élaborés, créatifs et gourmands respectant un budget TOTAL max de {budget} € (~{budget/count:.2f} €/repas).
     Objectif : '{objectif}'.
     Ingrédients du frigo à intégrer : '{frigo}'.
-    Exemples produits Carrefour : {json.dumps(ingredients_dispo, ensure_ascii=False)}
+    Exemples produits Carrefour disponibles : {json.dumps(ingredients_dispo, ensure_ascii=False)}
 
-    RÈGLES STRICTES :
-    - Génère STRICTEMENT {count} objets dans le tableau "recettes".
+    RÈGLES DE QUALITÉ DES PLATS :
+    - INTERDICTION de proposer des plats trop simples (pas de steak haché seul, pas de pâtes au beurre, pas d'œufs au plat simples).
+    - Propose des recettes travaillées : sauces maison, marinades, mijotés, épices, gratins, woks ou risottos (ex: "Émincé de poulet sauté au curry doux et lait de coco", "Risotto crémeux aux champignons et parmesan", "Parmentier de canard/bœuf aux herbes de Provence").
     - STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
-    - Sois concis dans les instructions pour ne pas dépasser la mémoire.
+    - Fournis un mot-clé très précis en anglais ("keyword_photo") correspondant exactement au visuel du plat (ex: "chicken-curry", "mushroom-risotto", "pasta-carbonara", "beef-stew", "chicken-tikka").
 
     Format JSON attendu :
     {{
       "recettes": [
         {{
           "id": 1,
-          "nom": "Nom du plat",
-          "keyword_photo": "pasta",
-          "temps": "20 min",
-          "prix_estime": 3.20,
+          "nom": "Nom gourmand et élaboré du plat",
+          "keyword_photo": "chicken-curry",
+          "temps": "25 min",
+          "prix_estime": 3.50,
           "ingredients": [
-            {{"nom": "Blanc de poulet 300g", "rayon": "Boucherie", "recherche_carrefour": "blanc de poulet"}}
+            {{"nom": "Blanc de poulet 300g", "rayon": "Boucherie", "recherche_carrefour": "blanc de poulet"}},
+            {{"nom": "Lait de coco 20cl", "rayon": "Épicerie du monde", "recherche_carrefour": "lait de coco"}}
           ],
-          "instructions": "1. Saisir le poulet. 2. Cuire l'accompagnement.",
-          "macros": {{"calories": 500, "proteines": 40, "glucides": 50, "lipides": 10}}
+          "instructions": "1. Faire mariner le poulet... 2. Faire revenir les épices...",
+          "macros": {{"calories": 550, "proteines": 42, "glucides": 48, "lipides": 14}}
         }}
       ]
     }}
@@ -148,21 +150,21 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
 
 def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
     prompt = f"""
-    Génère 1 seul plat pour remplacer '{recette_ancienne.get('nom')}'.
+    Tu es un chef cuisinier. Génère 1 seul plat élaboré pour remplacer '{recette_ancienne.get('nom')}'.
     Budget cible : ~{budget_cible:.2f} €. Objectif : '{objectif}'.
-    STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
+    STRICTEMENT AUCUN POISSON NI FRUIT DE MER. Pas de plats simplistes (pas de steak haché seul).
 
     JSON strict :
     {{
-      "nom": "Nouveau plat",
-      "keyword_photo": "chicken",
-      "temps": "15 min",
+      "nom": "Nouveau plat élaboré",
+      "keyword_photo": "creamy-pasta",
+      "temps": "20 min",
       "prix_estime": {budget_cible},
       "ingredients": [
-        {{"nom": "Pâtes 500g", "rayon": "Épicerie", "recherche_carrefour": "pates"}}
+        {{"nom": "Pâtes Penne 500g", "rayon": "Épicerie", "recherche_carrefour": "penne"}}
       ],
       "instructions": "Étape 1...",
-      "macros": {{"calories": 500, "proteines": 35, "glucides": 60, "lipides": 10}}
+      "macros": {{"calories": 550, "proteines": 35, "glucides": 60, "lipides": 12}}
     }}
     """
 
@@ -180,7 +182,7 @@ st.markdown(
     '<p class="main-header">🍳 BudgetGourmet IA</p>', unsafe_allow_html=True
 )
 st.caption(
-    "Planification intelligente de vos repas avec tarifs Carrefour et liste de courses automatisée."
+    "Planification de repas gastronomiques et accessibles avec tarifs Carrefour et liste de courses."
 )
 
 if not api_key:
@@ -190,7 +192,7 @@ else:
         "✨ Générer mon plan de repas", type="primary", use_container_width=True
     ):
         with st.spinner(
-            f"Création de vos {nb_repas} repas sur-mesure..."
+            f"Création de vos {nb_repas} repas élaborés sur-mesure..."
         ):
             try:
                 st.session_state["menu"] = generer_menu_ia(
@@ -206,7 +208,7 @@ if "menu" in st.session_state and st.session_state["menu"]:
 
     st.markdown("---")
 
-    # Mriques claires
+    # Métriques
     m1, m2, m3 = st.columns(3)
     m1.metric("Budget total", f"{cout_total:.2f} €", f"{budget_max - cout_total:.2f} € de marge")
     m2.metric("Repas générés", f"{len(recettes)} / {nb_repas}")
@@ -216,21 +218,21 @@ if "menu" in st.session_state and st.session_state["menu"]:
         ["🍽️ Catalogue des Repas", "📅 Planning de la Semaine", "🛒 Liste de Courses"]
     )
 
-    # --- TAB 1 : CATALOGUE (Cartes Propres & Correctes) ---
+    # --- TAB 1 : CATALOGUE ---
     with tab_menu:
         cols = st.columns(3)
         for idx, r in enumerate(recettes):
             with cols[idx % 3]:
                 with st.container(border=True):
-                    # Image robuste
+                    # Image dynamique et spécifique au plat
                     keyword = r.get("keyword_photo", "food")
-                    img_url = f"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+                    img_url = f"https://loremflickr.com/600/400/{urllib.parse.quote(keyword)}?lock={idx}"
                     st.image(img_url, use_container_width=True)
 
                     st.markdown(f"### {r.get('nom', 'Plat')}")
                     st.markdown(
                         f"<span class='badge-price'>💰 ~{r.get('prix_estime', 0):.2f} €</span> "
-                        f"<span class='badge-time'>⏱️ {r.get('temps', '15 min')}</span>",
+                        f"<span class='badge-time'>⏱️ {r.get('temps', '20 min')}</span>",
                         unsafe_allow_html=True,
                     )
 
@@ -240,7 +242,7 @@ if "menu" in st.session_state and st.session_state["menu"]:
                     )
 
                     if st.button("🔄 Changer ce plat", key=f"swap_{idx}", use_container_width=True):
-                        with st.spinner("Remplacement..."):
+                        with st.spinner("Recherche d'un autre plat élaboré..."):
                             st.session_state["menu"][idx] = remplacer_une_recette(
                                 r, objectif, budget_max / len(recettes)
                             )
