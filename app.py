@@ -1,118 +1,100 @@
 import streamlit as st
-import pandas as pd
+import json
+import os
+from openai import OpenAI
 
-# Configuration de la page
-st.set_page_config(
-    page_title="BudgetGourmet - Générateur de repas",
-    page_icon="🛒",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+st.set_page_config(page_title="BudgetGourmet IA - Carrefour Market", page_icon="🛒", layout="wide")
 
-# Style CSS personnalisé pour un rendu professionnel
-st.markdown("""
-    <style>
-    .main { background-color: #f8f9fa; }
-    .stButton>button { width: 100%; background-color: #2b8a3e; color: white; border-radius: 8px; font-weight: bold; }
-    .metric-card { background-color: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-    </style>
-""", unsafe_allow_html=True)
+# Initialisation du client OpenAI (mets ta clé dans st.secrets ou variable d'environnement)
+api_key = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key) if api_key else None
 
-st.title("🛒 BudgetGourmet — Assistant Repas & Courses")
-st.caption("Planifiez vos repas pour 1 personne selon votre enseigne et votre budget exact.")
+@st.cache_data
+def charger_produits():
+    if os.path.exists("produits_locaux.json"):
+        with open("produits_locaux.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    return []
 
-# --- BARRE LATÉRALE : PARAMÈTRES ---
-with st.sidebar:
-    st.header("⚙️ Vos Paramètres")
+# Chargement du catalogue
+produits = charger_produits()
+
+st.title("🤖 Générateur de Recettes & Macros par IA")
+st.caption("Recettes basées sur les produits disponibles chez Carrefour Market")
+
+# Barre latérale : Paramètres de l'IA
+st.sidebar.header("🎯 Préférences")
+objectif = st.sidebar.selectbox("Objectif nutritionnel", ["Prise de masse (Riche en protéines)", "Sèche / Maintien (Équilibré)", "Économique & Rapide"])
+nb_recettes = st.sidebar.slider("Nombre de recettes à générer", 1, 5, 3)
+
+def generer_recettes_avec_ia(liste_produits, objectif, count):
+    # Extrait uniquement les noms et prix pour alléger le prompt
+    ingredients_dispo = [f"{p['item']} ({p['prix']}€)" for p in liste_produits[:40]]
     
-    enseigne = st.selectbox(
-        "Choisissez votre enseigne :",
-        ["Carrefour Market", "Carrefour City", "Lidl"]
+    prompt = f"""
+    Tu es un chef cuisinier et nutritionniste.
+    Voici la liste des produits disponibles chez Carrefour Market avec leurs prix :
+    {json.dumps(ingredients_dispo, ensure_ascii=False)}
+
+    Génère {count} recettes uniques adaptées à l'objectif : '{objectif}'.
+    Attention : pas de poisson ni fruits de mer.
+
+    Réponds STRICTEMENT au format JSON avec cette structure exacte :
+    [
+      {{
+        "nom": "Nom de la recette",
+        "temps": "20 min",
+        "prix_estime": 3.50,
+        "ingredients": ["Ingrédient 1", "Ingrédient 2"],
+        "instructions": "Étape 1: ... Étape 2: ...",
+        "macros": {{
+          "calories": 500,
+          "proteines": 40,
+          "glucides": 50,
+          "lipides": 10
+        }}
+      }}
+    ]
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"} if hasattr(client.chat.completions, 'response_format') else None
     )
     
-    budget = st.number_input("Budget maximum (€) :", min_value=10, max_value=500, value=50, step=5)
-    duree_jours = st.slider("Durée (jours) :", min_value=1, max_value=14, value=7)
-    
-    st.subheader("🥗 Catégories de plats")
-    cat_rapide = st.checkbox("Rapide & Facile (< 15 min)", value=True)
-    cat_proteine = st.checkbox("Riche en Protéines", value=True)
-    cat_economique = st.checkbox("Ultra Économique", value=True)
-    cat_vege = st.checkbox("Végétarien", value=False)
-    
-    btn_generer = st.button("🚀 Générer mon menu & mes courses")
+    contenu = response.choices[0].message.content
+    # Si le retour est enrobé dans un dictionnaire principal JSON
+    data = json.loads(contenu)
+    return data if isinstance(data, list) else data.get("recettes", data.get("data", []))
 
-# --- BASE DE DONNÉES SIMULÉE DES INGRÉDIENTS PAR ENSEIGNE ---
-BASE_PRODUITS = {
-    "Lidl": [
-        {"item": "Filet de Poulet 500g", "prix": 4.50, "cat": "Protéines"},
-        {"item": "Pâtes Penne 1kg", "prix": 1.15, "cat": "Féculents"},
-        {"item": "Riz Basmati 1kg", "prix": 1.80, "cat": "Féculents"},
-        {"item": "Œufs Plein Air (x10)", "prix": 2.20, "cat": "Protéines"},
-        {"item": "Légumes Poêlée Surgelée 1kg", "prix": 2.10, "cat": "Légumes"},
-        {"item": "Sauce Tomate Basilic 400g", "prix": 0.95, "cat": "Épicerie"},
-        {"item": "Fromage Râpé 200g", "prix": 1.60, "cat": "Crémerie"},
-    ],
-    "Carrefour Market": [
-        {"item": "Filet de Poulet Carrefour 500g", "prix": 4.90, "cat": "Protéines"},
-        {"item": "Pâtes Penne Barilla 500g", "prix": 1.25, "cat": "Féculents"},
-        {"item": "Riz Basmati Carrefour 1kg", "prix": 1.95, "cat": "Féculents"},
-        {"item": "Œufs Carrefour Bio (x6)", "prix": 2.10, "cat": "Protéines"},
-        {"item": "Mélange Légumes Carrefour 750g", "prix": 2.40, "cat": "Légumes"},
-        {"item": "Sauce Tomate Panzani 400g", "prix": 1.35, "cat": "Épicerie"},
-        {"item": "Emmental Râpé Président 200g", "prix": 2.10, "cat": "Crémerie"},
-    ],
-    "Carrefour City": [
-        {"item": "Filet de Poulet 400g", "prix": 5.20, "cat": "Protéines"},
-        {"item": "Pâtes Penne 500g", "prix": 1.40, "cat": "Féculents"},
-        {"item": "Riz Basmati 500g", "prix": 1.60, "cat": "Féculents"},
-        {"item": "Œufs Plein Air (x6)", "prix": 2.30, "cat": "Protéines"},
-        {"item": "Légumes Frais Poivrons/Oignons 400g", "prix": 2.80, "cat": "Légumes"},
-        {"item": "Sauce Tomate Saclà 190g", "prix": 1.80, "cat": "Épicerie"},
-        {"item": "Emmental Râpé 150g", "prix": 1.90, "cat": "Crémerie"},
-    ]
-}
+# Bouton de génération
+if not api_key:
+    st.warning("🔑 Veuillez renseigner votre clé API OpenAI dans un fichier `.env` ou `.streamlit/secrets.toml` pour activer la génération.")
+else:
+    if st.button("🚀 Générer mes recettes avec les prix en direct", type="primary"):
+        with st.spinner("L'IA concocte vos recettes et calcule les macros..."):
+            try:
+                recettes_ia = generer_recettes_avec_ia(produits, objectif, nb_recettes)
+                st.session_state["recettes_ia"] = recettes_ia
+            except Exception as e:
+                st.error(f"Erreur lors de la génération par l'IA : {e}")
 
-# --- AFFICHAGE ET LOGIQUE PRINCIPALE ---
-if btn_generer or "menu_genere" in st.session_state:
-    st.session_state["menu_genere"] = True
-    
-    produits = BASE_PRODUITS.get(enseigne, BASE_PRODUITS["Carrefour Market"])
-    df_produits = pd.DataFrame(produits)
-    total_estime = df_produits["prix"].sum()
-    
-    # KPIs / En-tête métrique
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Magasin sélectionné", enseigne)
-    col2.metric("Budget Alloué", f"{budget:.2f} €")
-    col3.metric("Total Panier Estimé", f"{total_estime:.2f} €", delta=f"{budget - total_estime:.2f} € restant")
-
-    st.markdown("---")
-    
-    tab1, tab2 = st.tabs(["🍲 Menu & Recettes de la Semaine", "🛒 Liste de Courses"])
-    
-    with tab1:
-        st.subheader(f"Planning des repas pour {duree_jours} jours (1 Personne)")
-        for jour in range(1, duree_jours + 1):
-            with st.expander(f"📅 Jour {jour} — Poêlée de Poulet & Riz aux Légumes"):
-                st.markdown("""
-                * **Type de plat :** Rapide & Protéiné
-                * **Temps de préparation :** 12 minutes
-                * **Coût estimé du plat :** ~ 2,80 € / portion
-                
-                **Ingrédients nécessaires :**
-                * 120g de Filet de Poulet
-                * 80g de Riz Basmati
-                * 150g de Poêlée de Légumes
-                
-                **Préparation :**
-                1. Faire cuire le riz basmati dans de l'eau bouillante salée (10 min).
-                2. Dans une poêle avec un filet d'huile d'olive, faire revenir le poulet coupé en dés.
-                3. Ajouter les légumes et laisser mijoter 5 minutes à feu moyen. Mélanger au riz et servir chaud.
-                """)
-
-    with tab2:
-        st.subheader("Liste de courses à cocher en magasin")
-        st.info("Cochez les articles au fur et à mesure que vous les mettez dans votre chariot.")
-        
-        for idx, row in df_produits.iterrows():
+# Affichage des recettes générées
+if "recettes_ia" in st.session_state:
+    for recette in st.session_state["recettes_ia"]:
+        with st.expander(f"📖 **{recette['nom']}** — ~{recette.get('prix_estime', 0):.2f} € ({recette.get('temps', '15 min')})", expanded=True):
+            
+            st.write("**Ingrédients :** " + ", ".join(recette.get('ingredients', [])))
+            st.write("**Préparation :** " + recette.get('instructions', ''))
+            
+            st.markdown("---")
+            st.caption("📊 **Macronutriments (par portion) :**")
+            
+            macros = recette.get('macros', {})
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("🔥 Calories", f"{macros.get('calories', 0)} kcal")
+            col2.metric("🍗 Protéines", f"{macros.get('proteines', 0)} g")
+            col3.metric("🌾 Glucides", f"{macros.get('glucides', 0)} g")
+            col4.metric("🥑 Lipides", f"{macros.get('lipides', 0)} g")
             st.checkbox(f"**{row['item']}** — {row['prix']:.2f} € *({row['cat']})*", key=f"item_{idx}")
