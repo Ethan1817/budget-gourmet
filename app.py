@@ -1,4 +1,4 @@
-import streamlit as st
+'''import streamlit as st
 import pandas as pd
 import json
 import os
@@ -20,3 +20,8 @@ def charger_catalogue():
     ]
 
 PRODUITS_EXACTS = charger_catalogue()
+'''
+import streamlit as st
+
+st.title("🎉 Test réussi !")
+st.write("L'application fonctionne correctement.")
