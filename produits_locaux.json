@@ -1,0 +1,860 @@
+[
+  {
+    "item": "Filets de Poulet",
+    "prix": 11.9,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poulet"
+  },
+  {
+    "item": "Aiguillettes de Poulet",
+    "prix": 12.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poulet"
+  },
+  {
+    "item": "LE GAULOIS\n\nFilets de Poulet Blanc LE GAULOIS",
+    "prix": 10.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poulet"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nEscalopes de Dinde Extra-fines CARREFOUR CLASSIC'",
+    "prix": 3.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=escalope dinde"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nEscalopes de Dinde CARREFOUR CLASSIC'",
+    "prix": 3.78,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=escalope dinde"
+  },
+  {
+    "item": "MAITRE COQ\n\nEscalopes de Dinde Extra Fines MAITRE COQ",
+    "prix": 4.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=escalope dinde"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nSteaks hachés pur bœuf 15% MG CARREFOUR EXTRA",
+    "prix": 12.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=steak hache"
+  },
+  {
+    "item": "CARREFOUR LE MARCHE\n\nSteaks Hachés Pur Bœuf 15% MG CARREFOUR LE MARCHE",
+    "prix": 6.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=steak hache"
+  },
+  {
+    "item": "CHARAL\n\nSteak Haché Pur Bœuf 15%MG CHARAL",
+    "prix": 15.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=steak hache"
+  },
+  {
+    "item": "CARREFOUR LE MARCHE\n\nViande Hachée Pur Bœuf 5% MG CARREFOUR LE MARCHE",
+    "prix": 8.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=viande hachee"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nViande hachée pur bœuf 15% MG CARREFOUR EXTRA",
+    "prix": 5.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=viande hachee"
+  },
+  {
+    "item": "CARREFOUR LE MARCHE\n\nViande Hachée Pur Bœuf 15% MG CARREFOUR LE MARCHE",
+    "prix": 5.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=viande hachee"
+  },
+  {
+    "item": "FILIERE QUALITE CARREFOUR\n\nJambon Cuit à l'Etouffée Découenné FILIERE QUALITE CARREFOUR",
+    "prix": 5.49,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=jambon"
+  },
+  {
+    "item": "HERTA\n\nJambon A L'Etouffée - Le Bon Paris HERTA",
+    "prix": 3.05,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=jambon"
+  },
+  {
+    "item": "HERTA\n\nJambon à l'étouffée HERTA",
+    "prix": 3.04,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=jambon"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nLardons fumés et qualité supérieure CARREFOUR CLASSIC'",
+    "prix": 1.85,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lardons"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nLardons nature et qualité supérieure CARREFOUR CLASSIC'",
+    "prix": 1.85,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lardons"
+  },
+  {
+    "item": "HERTA\n\nLardons Fumés Sans Nitrite HERTA",
+    "prix": 1.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lardons"
+  },
+  {
+    "item": "CARREFOUR LE MARCHE\n\nChipolatas Supérieures CARREFOUR LE MARCHE",
+    "prix": 3.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=saucisse"
+  },
+  {
+    "item": "HERTA\n\nKnacki Saucisses 100% Pur Porc HERTA",
+    "prix": 1.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=saucisse"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nSaucisses pur porc et fumées au bois de hêtre CARREFOUR CLASSIC'",
+    "prix": 1.55,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=saucisse"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nPois chiches CARREFOUR CLASSIC'",
+    "prix": 0.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pois chiches"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nPois Chiches CARREFOUR CLASSIC'",
+    "prix": 1.65,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pois chiches"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nHaricots rouges CARREFOUR CLASSIC'",
+    "prix": 0.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=haricots rouges"
+  },
+  {
+    "item": "BARILLA\n\nPâtes penne rigate BARILLA",
+    "prix": 1.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pates penne"
+  },
+  {
+    "item": "CARREFOUR\n\nPâtes penne rigate CARREFOUR",
+    "prix": 1.15,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pates penne"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nPâtes penne rigate CARREFOUR CLASSIC'",
+    "prix": 0.59,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pates penne"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\npâtes alimentaires spaghetti CARREFOUR CLASSIC'",
+    "prix": 0.7,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=spaghetti"
+  },
+  {
+    "item": "BARILLA\n\nPâtes spaghetti n°5 BARILLA",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=spaghetti"
+  },
+  {
+    "item": "CARREFOUR\n\nPâtes spaghetti CARREFOUR",
+    "prix": 1.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=spaghetti"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nPâtes coquillettes CARREFOUR CLASSIC'",
+    "prix": 1.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=coquillettes"
+  },
+  {
+    "item": "PANZANI\n\nPâtes coquillettes PANZANI",
+    "prix": 1.85,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=coquillettes"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nRiz Basmati Long CARREFOUR EXTRA",
+    "prix": 2.55,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=riz basmati"
+  },
+  {
+    "item": "TAUREAU AILE\n\nRiz Basmati Long TAUREAU AILE",
+    "prix": 3.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=riz basmati"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nRiz Thaï Long CARREFOUR EXTRA",
+    "prix": 2.25,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=riz thai"
+  },
+  {
+    "item": "CARREFOUR\n\nRiz Thaï Long CARREFOUR",
+    "prix": 1.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=riz thai"
+  },
+  {
+    "item": "TAUREAU AILE\n\nRiz Thai Long TAUREAU AILE",
+    "prix": 3.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=riz thai"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nLentilles Vertes CARREFOUR CLASSIC'",
+    "prix": 1.65,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lentilles vertes"
+  },
+  {
+    "item": "CARREFOUR BIO\n\nLentilles Vertes Bio CARREFOUR BIO",
+    "prix": 2.25,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lentilles vertes"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nLentilles Vertes CARREFOUR EXTRA",
+    "prix": 1.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lentilles vertes"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nLentilles Corail CARREFOUR CLASSIC'",
+    "prix": 1.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lentilles corail"
+  },
+  {
+    "item": "CARREFOUR BIO\n\nLentilles Corail Bio CARREFOUR BIO",
+    "prix": 2.39,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lentilles corail"
+  },
+  {
+    "item": "LEGUMOR\n\nLentilles Corail LEGUMOR",
+    "prix": 3.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lentilles corail"
+  },
+  {
+    "item": "CARREFOUR CLASSIC\n\nCouscous Moyen 5min CARREFOUR CLASSIC",
+    "prix": 1.69,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=semoule"
+  },
+  {
+    "item": "FERRERO\n\nCouscous Moyen 5min FERRERO",
+    "prix": 2.49,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=semoule"
+  },
+  {
+    "item": "TIPIAK\n\nCouscous Sachet Cuisson TIPIAK",
+    "prix": 1.45,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=semoule"
+  },
+  {
+    "item": "LUSTUCRU\n\nPâtes Fraîches Gnocchi À Poêler LUSTUCRU",
+    "prix": 2.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=gnocchi"
+  },
+  {
+    "item": "LUSTUCRU\n\nPâtes Fraîches Gnocchi À Poêler Extra Fromage LUSTUCRU",
+    "prix": 2.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=gnocchi"
+  },
+  {
+    "item": "CARREFOUR SENSATION\n\nGalettes tortillas de blé à garnir CARREFOUR SENSATION",
+    "prix": 1.85,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=tortilla wrap"
+  },
+  {
+    "item": "CARREFOUR SENSATION\n\nWraps de blé CARREFOUR SENSATION",
+    "prix": 2.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=tortilla wrap"
+  },
+  {
+    "item": "CARREFOUR SENSATION\n\nWraps blé à garnir CARREFOUR SENSATION",
+    "prix": 2.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=tortilla wrap"
+  },
+  {
+    "item": "Patates Douces Vrac",
+    "prix": 2.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=patate douce"
+  },
+  {
+    "item": "Patate douce Bio",
+    "prix": 3.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=patate douce"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nFrites patate douce CARREFOUR EXTRA",
+    "prix": 2.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=patate douce"
+  },
+  {
+    "item": "SIMPL\n\nPommes de terre SIMPL",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pomme de terre"
+  },
+  {
+    "item": "PETIT PRIX\n\nPommes de terre de consommation PETIT PRIX",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pomme de terre"
+  },
+  {
+    "item": "Pommes de terre vapeur blanches",
+    "prix": 2.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pomme de terre"
+  },
+  {
+    "item": "FILIERE QUALITE CARREFOUR\n\nCarottes vrac FILIERE QUALITE CARREFOUR",
+    "prix": 2.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=carottes"
+  },
+  {
+    "item": "Carottes vrac",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=carottes"
+  },
+  {
+    "item": "FILIERE QUALITE CARREFOUR\n\nCarottes agroécologie FILIERE QUALITE CARREFOUR",
+    "prix": 2.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=carottes"
+  },
+  {
+    "item": "SIMPL\n\nOignons SIMPL",
+    "prix": 1.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=oignons"
+  },
+  {
+    "item": "Oignon Jaune",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=oignons"
+  },
+  {
+    "item": "SIMPL\n\nOignon Rouge SIMPL",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=oignons"
+  },
+  {
+    "item": "Courgette Vrac",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=courgettes"
+  },
+  {
+    "item": "SIMPL\n\nCourgette SIMPL",
+    "prix": 1.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=courgettes"
+  },
+  {
+    "item": "Courgettes bio",
+    "prix": 3.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=courgettes"
+  },
+  {
+    "item": "Tomates côtelées rouges coeur vrac",
+    "prix": 7.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=tomates"
+  },
+  {
+    "item": "Tomates rondes charnues à farcir vrac",
+    "prix": 4.39,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=tomates"
+  },
+  {
+    "item": "Tomates rondes en grappe cocktail Zéro Résidu de Pesticide",
+    "prix": 3.0,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=tomates"
+  },
+  {
+    "item": "CARREFOUR\n\nSalade Mâche CARREFOUR",
+    "prix": 1.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=salade"
+  },
+  {
+    "item": "CARREFOUR\n\nSalade Mélange Jeunes Pousses CARREFOUR",
+    "prix": 1.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=salade"
+  },
+  {
+    "item": "CARREFOUR\n\nSalade Roquette CARREFOUR",
+    "prix": 1.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=salade"
+  },
+  {
+    "item": "SIMPL\n\nPoivrons Bicolores SIMPL",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poivrons"
+  },
+  {
+    "item": "Poivrons Rouges Vrac",
+    "prix": 3.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poivrons"
+  },
+  {
+    "item": "Poivrons Jaunes",
+    "prix": 3.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poivrons"
+  },
+  {
+    "item": "Champignons blancs",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=champignons"
+  },
+  {
+    "item": "Champignons blancs émincés",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=champignons"
+  },
+  {
+    "item": "Champignons de Paris",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=champignons"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nBrocolis en Fleurettes CARREFOUR CLASSIC'",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=brocoli"
+  },
+  {
+    "item": "Brocoli",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=brocoli"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nbrocolis en fleurettes précuits en fleurettes précuits CARREFOUR EXTRA",
+    "prix": 1.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=brocoli"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nHaricots Verts Extra Fins CARREFOUR CLASSIC'",
+    "prix": 1.2,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=haricots verts"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nHaricots Verts Extra Fins CARREFOUR EXTRA",
+    "prix": 2.45,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=haricots verts"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nEpinards en branches CARREFOUR CLASSIC'",
+    "prix": 1.49,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=epinards"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nEpinards hachés à la crème fraîche CARREFOUR EXTRA",
+    "prix": 1.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=epinards"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nEpinards hachés CARREFOUR CLASSIC'",
+    "prix": 1.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=epinards"
+  },
+  {
+    "item": "SIMPL\n\nAil SIMPL",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=ail"
+  },
+  {
+    "item": "Tête d'ail",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=ail"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nAil Déshydraté CARREFOUR CLASSIC'",
+    "prix": 1.39,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=ail"
+  },
+  {
+    "item": "BONDUELLE\n\nMaïs sans résidu de pesticides BONDUELLE",
+    "prix": 1.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=mais"
+  },
+  {
+    "item": "BONDUELLE\n\nMaïs sans OGM BONDUELLE",
+    "prix": 3.95,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=mais"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nMaïs sans sucres ajoutés CARREFOUR CLASSIC'",
+    "prix": 2.05,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=mais"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nLégumes cuisinés poêlée champêtre CARREFOUR EXTRA",
+    "prix": 3.15,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poelee legumes"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nPoêlée de légumes grillés CARREFOUR EXTRA",
+    "prix": 4.55,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poelee legumes"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nPoêlée de légumes à la Basquaise CARREFOUR EXTRA",
+    "prix": 3.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=poelee legumes"
+  },
+  {
+    "item": "CARREFOUR ORIGINAL\n\nŒufs plein air CARREFOUR ORIGINAL",
+    "prix": 2.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=oeufs"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nŒufs Frais de Poules Elevées au Sol CARREFOUR CLASSIC'",
+    "prix": 4.69,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=oeufs"
+  },
+  {
+    "item": "SIMPL\n\nŒufs frais SIMPL",
+    "prix": 1.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=oeufs"
+  },
+  {
+    "item": "LACTEL\n\nLait Demi-Ecrémé Sans Lactose 12% MG Matin Léger LACTEL",
+    "prix": 1.78,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lait"
+  },
+  {
+    "item": "LACTEL\n\nLait Demi-Ecrémé Vitaminé 1% MG LACTEL",
+    "prix": 7.08,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lait"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nLait Demi-Ecrémé demi-écrémé CARREFOUR CLASSIC'",
+    "prix": 1.05,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lait"
+  },
+  {
+    "item": "PAYSAN BRETON\n\nBeurre Doux Moulé PAYSAN BRETON",
+    "prix": 3.25,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=beurre"
+  },
+  {
+    "item": "MONTFLEURI\n\nBeurre doux MONTFLEURI",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=beurre"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nBeurre gastronomique doux CARREFOUR CLASSIC'",
+    "prix": 4.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=beurre"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nEmmental râpé fondant râpé fondant CARREFOUR CLASSIC'",
+    "prix": 1.65,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=emmental rape"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nEmmental râpé fondant CARREFOUR CLASSIC'",
+    "prix": 3.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=emmental rape"
+  },
+  {
+    "item": "GALBANI\n\nFromage Mozzarella Di Latte Di Bufala GALBANI",
+    "prix": 4.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=mozzarella"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nMozzarella CARREFOUR CLASSIC'",
+    "prix": 2.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=mozzarella"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nCrème Légère Semi-Épaisse 18% Mg CARREFOUR CLASSIC'",
+    "prix": 2.09,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=creme fraiche"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nCrème Fraîche Épaisse Légère 15% Mg CARREFOUR CLASSIC'",
+    "prix": 1.55,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=creme fraiche"
+  },
+  {
+    "item": "SIMPL\n\nCrème Fraîche Légère 15% Mat.Gr. SIMPL",
+    "prix": 1.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=creme fraiche"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nFromage feta CARREFOUR EXTRA",
+    "prix": 2.55,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=feta"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nFromage de Brebis pour apéritif et salade CARREFOUR CLASSIC'",
+    "prix": 2.15,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=feta"
+  },
+  {
+    "item": "SALAKIS\n\nFromage de brebis pour apéritif et salade SALAKIS",
+    "prix": 2.79,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=feta"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nParmigiano Reggiano râpé AOP CARREFOUR EXTRA",
+    "prix": 2.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=parmesan"
+  },
+  {
+    "item": "CASA AZZURRA\n\nParmigiano Reggiano AOP CASA AZZURRA",
+    "prix": 1.56,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=parmesan"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nParmigiano Reggiano Reggiano A.O.P CARREFOUR EXTRA",
+    "prix": 5.29,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=parmesan"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nFromage Fondu au Cheddar en Tranches pour Hamburger CARREFOUR CLASSIC'",
+    "prix": 1.25,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=cheddar"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nFromage Râpé Cheddar CARREFOUR CLASSIC'",
+    "prix": 1.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=cheddar"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nCheddar en tranches CARREFOUR CLASSIC'",
+    "prix": 2.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=cheddar"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nSauce tomates basilic CARREFOUR CLASSIC'",
+    "prix": 1.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=sauce tomate"
+  },
+  {
+    "item": "PANZANI\n\nSauce tomate cuisinée aux petits légumes PANZANI",
+    "prix": 1.09,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=sauce tomate"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nPurée de tomates CARREFOUR CLASSIC'",
+    "prix": 0.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=sauce tomate"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nSauce pesto basilic frais CARREFOUR CLASSIC'",
+    "prix": 1.49,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pesto"
+  },
+  {
+    "item": "BARILLA\n\nSauce pesto genovese au basilic frais BARILLA",
+    "prix": 2.15,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pesto"
+  },
+  {
+    "item": "BARILLA\n\nSauce pesto rosso BARILLA",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=pesto"
+  },
+  {
+    "item": "KARA\n\nLait de Coco Fluide KARA",
+    "prix": 1.25,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lait de coco"
+  },
+  {
+    "item": "SIMPL\n\nLait de coco SIMPL",
+    "prix": 0.69,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lait de coco"
+  },
+  {
+    "item": "CARREFOUR SENSATION\n\nLait de Coco Stérilisé CARREFOUR SENSATION",
+    "prix": 1.65,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=lait de coco"
+  },
+  {
+    "item": "CARREFOUR CLASSIC'\n\nCurry en poudre Doux CARREFOUR CLASSIC'",
+    "prix": 0.55,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=curry"
+  },
+  {
+    "item": "DUCROS\n\nCurry doux poudre DUCROS",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=curry"
+  },
+  {
+    "item": "CARREFOUR BIO\n\nCurry Bio CARREFOUR BIO",
+    "prix": 1.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=curry"
+  },
+  {
+    "item": "CARREFOUR\n\nMoutarde de Dijon Fine et Forte CARREFOUR",
+    "prix": 0.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=moutarde"
+  },
+  {
+    "item": "MAILLE\n\nMoutarde de Dijon Fine L'Originale MAILLE",
+    "prix": 1.65,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=moutarde"
+  },
+  {
+    "item": "CARREFOUR\n\nMoutarde de Dijon CARREFOUR",
+    "prix": 1.39,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=moutarde"
+  },
+  {
+    "item": "CARREFOUR EXTRA\n\nHuile d'Olive Vierge Extra CARREFOUR EXTRA",
+    "prix": 8.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=huile d olive"
+  },
+  {
+    "item": "CARREFOUR BIO\n\nHuile d'Olive Vierge Extra Bio CARREFOUR BIO",
+    "prix": 10.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=huile d olive"
+  },
+  {
+    "item": "CARREFOUR SENSATION\n\nSauce Soja Salée CARREFOUR SENSATION",
+    "prix": 1.25,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=sauce soja"
+  },
+  {
+    "item": "CARREFOUR SENSATION\n\nSauce soja sucrée CARREFOUR SENSATION",
+    "prix": 1.19,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=sauce soja"
+  },
+  {
+    "item": "SUZI WAN\n\nSauce Soja Salée SUZI WAN",
+    "prix": 1.89,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=sauce soja"
+  },
+  {
+    "item": "MAGGI\n\nBouillon Déshydraté de Volaille MAGGI",
+    "prix": 1.75,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=cube bouillon"
+  },
+  {
+    "item": "MAGGI\n\nBouillon Déshydraté Kub Or MAGGI",
+    "prix": 1.35,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=cube bouillon"
+  },
+  {
+    "item": "MAGGI\n\nBouillon Déshydraté aux Légumes MAGGI",
+    "prix": 1.99,
+    "cat": "Carrefour Market",
+    "url": "https://www.carrefour.fr/s?q=cube bouillon"
+  }
+]
