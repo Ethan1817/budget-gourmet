@@ -80,7 +80,7 @@ objectif = st.sidebar.selectbox(
         "Économique & Rapide",
     ],
 )
-nb_repas = st.sidebar.slider("Nombre de repas", 1, 30, 7)
+nb_repas = st.sidebar.slider("Nombre de repas à planifier", 1, 30, 7)
 budget_max = st.sidebar.number_input(
     "Budget total (€)",
     min_value=5.0,
@@ -102,40 +102,40 @@ st.sidebar.info(f"💡 Budget cible : **{budget_par_repas:.2f} €** / repas")
 # --- Fonctions IA ---
 def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
     ingredients_dispo = (
-        [f"{p.get('item', '')} ({p.get('prix', '')}€)" for p in liste_produits[:40]]
+        [f"{p.get('item', '')} ({p.get('prix', '')}€)" for p in liste_produits[:30]]
         if liste_produits
         else ["Poulet", "Riz", "Légumes", "Œufs", "Pâtes", "Bœuf"]
     )
 
     prompt = f"""
-    Tu es un coach culinaire spécialisé dans les repas étudiants faciles et pas chers. 
-    Génère EXACTEMENT {count} repas gourmands, ultra-simples, rapides (15-20 min max) respectant un budget TOTAL max de {budget} € (~{budget/count:.2f} €/repas).
+    Tu es un assistant culinaire étudiant.
+    Génère EXACTEMENT un tableau de {count} repas étudiants simples, rapides (15-20 min max) et pas chers.
+    Budget TOTAL max : {budget} € (soit ~{budget/count:.2f} € par repas).
     Objectif : '{objectif}'.
-    Ingrédients du frigo à intégrer : '{frigo}'.
-    Exemples produits Carrefour disponibles : {json.dumps(ingredients_dispo, ensure_ascii=False)}
+    Ingrédients frigo à intégrer si possible : '{frigo}'.
+    Exemples d'ingrédients Carrefour : {json.dumps(ingredients_dispo, ensure_ascii=False)}
 
-    RÈGLES REPAS ÉTUDIANTS :
-    - Fais des plats simples mais gourmands (ex: Wraps poulet-paprika, Quesadillas bœuf/fromage, Pâtes crème-parmesan & dinde, Riz sauté à la sauce soja & œuf, Gratin rapide de coquillettes).
-    - PAS de recettes de chef compliquées (pas de sauces mijotées des heures, pas de marinades complexes, pas d'ustensiles rares).
-    - PAS de recettes tristes (pas de steak haché nature sans sauce ni assaisonnement, pas de riz blanc nature).
-    - STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
-    - Pour "keyword_photo", choisis STRICTEMENT UN SEUL mot anglais simple parmi cette liste : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza"].
+    RÈGLES IMPÉRATIVES :
+    1. Le tableau "recettes" doit contenir STRICTEMENT {count} éléments, pas un de moins ni un de plus.
+    2. Recettes simples mais gourmandes (wraps, pâtes sauce maison, quesadillas, riz sauté, omelette garnie, gratins rapides). Pas de plats complexes, pas de riz nature triste.
+    3. STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
+    4. Pour "keyword_photo", choisis STRICTEMENT UN SEUL mot dans cette liste exacte : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza", "eggs", "salad", "wrap"].
+    5. Sois direct et concis dans les instructions pour garantir la génération complète des {count} repas.
 
     Format JSON attendu :
     {{
       "recettes": [
         {{
           "id": 1,
-          "nom": "Wrap Poulet Épicé & Cheese",
-          "keyword_photo": "tacos",
+          "nom": "Wrap Poulet Épicé",
+          "keyword_photo": "wrap",
           "temps": "15 min",
           "prix_estime": 2.80,
           "ingredients": [
             {{"nom": "Tortillas de blé (x4)", "rayon": "Épicerie du monde", "recherche_carrefour": "tortillas"}},
-            {{"nom": "Émincé de poulet 200g", "rayon": "Boucherie", "recherche_carrefour": "poulet"}},
-            {{"nom": "Fromage râpé 100g", "rayon": "Crémerie", "recherche_carrefour": "fromage rape"}}
+            {{"nom": "Émincé de poulet 200g", "rayon": "Boucherie", "recherche_carrefour": "poulet"}}
           ],
-          "instructions": "1. Faire revenir le poulet avec un peu d'épices. 2. Garnir la tortilla avec le fromage et réchauffer 2 min à la poêle.",
+          "instructions": "Faire griller le poulet avec des épices, garnir la tortilla et réchauffer.",
           "macros": {{"calories": 520, "proteines": 38, "glucides": 50, "lipides": 14}}
         }}
       ]
@@ -146,7 +146,7 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"},
-        max_tokens=4000,
+        max_tokens=8000,
     )
     return json.loads(res.choices[0].message.content).get("recettes", [])
 
@@ -155,12 +155,12 @@ def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
     prompt = f"""
     Génère 1 seul plat étudiant simple et gourmand pour remplacer '{recette_ancienne.get('nom')}'.
     Budget cible : ~{budget_cible:.2f} €. Objectif : '{objectif}'.
-    STRICTEMENT AUCUN POISSON NI FRUIT DE MER. Pas de trucs trop compliqués, juste bon et rapide.
-    "keyword_photo" doit être un seul mot parmi : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza"].
+    STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
+    "keyword_photo" doit être un seul mot parmi : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza", "eggs", "salad", "wrap"].
 
     JSON strict :
     {{
-      "nom": "Pâtes crémeuses au poulet et curry",
+      "nom": "Pâtes crémeuses au poulet",
       "keyword_photo": "pasta",
       "temps": "15 min",
       "prix_estime": {budget_cible},
@@ -168,7 +168,7 @@ def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
         {{"nom": "Penne 500g", "rayon": "Épicerie", "recherche_carrefour": "penne"}},
         {{"nom": "Crème fraîche 20cl", "rayon": "Crémerie", "recherche_carrefour": "creme fraiche"}}
       ],
-      "instructions": "1. Cuire les pâtes. 2. Mélanger la crème et le curry puis ajouter le poulet.",
+      "instructions": "Cuire les pâtes. Mélanger la crème et mélanger avec le poulet.",
       "macros": {{"calories": 550, "proteines": 35, "glucides": 65, "lipides": 12}}
     }}
     """
@@ -194,10 +194,10 @@ if not api_key:
     st.error("🔑 Veuillez configurer la clé `GROQ_API_KEY` dans vos Secrets Streamlit.")
 else:
     if st.button(
-        "✨ Générer mon plan de repas", type="primary", use_container_width=True
+        f"✨ Générer mes {nb_repas} repas", type="primary", use_container_width=True
     ):
         with st.spinner(
-            f"Création de vos {nb_repas} repas étudiants simples et gourmands..."
+            f"Génération de vos {nb_repas} repas en cours..."
         ):
             try:
                 st.session_state["menu"] = generer_menu_ia(
@@ -229,9 +229,10 @@ if "menu" in st.session_state and st.session_state["menu"]:
         for idx, r in enumerate(recettes):
             with cols[idx % 3]:
                 with st.container(border=True):
-                    # Génération d'image ciblée
+                    # Génération d'image Unsplash ciblée
                     kw = str(r.get("keyword_photo", "food")).lower().strip()
-                    img_url = f"https://loremflickr.com/600/400/{urllib.parse.quote(kw)}?lock={idx}"
+                    img_url = f"https://source.unsplash.com/600x400/?{urllib.parse.quote(kw)},food&sig={idx}"
+                    
                     st.image(img_url, use_container_width=True)
 
                     st.markdown(f"### {r.get('nom', 'Plat')}")
@@ -247,7 +248,7 @@ if "menu" in st.session_state and st.session_state["menu"]:
                     )
 
                     if st.button("🔄 Changer ce plat", key=f"swap_{idx}", use_container_width=True):
-                        with st.spinner("Recherche d'une alternative facile..."):
+                        with st.spinner("Recherche d'une alternative..."):
                             st.session_state["menu"][idx] = remplacer_une_recette(
                                 r, objectif, budget_max / len(recettes)
                             )
