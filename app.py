@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# --- CSS Épuré & Thème Sombre Soigné ---
+# --- CSS Épuré & Thème Sombre ---
 st.markdown(
     """
 <style>
@@ -108,32 +108,35 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
     )
 
     prompt = f"""
-    Tu es un chef cuisinier gastronomique expert. Génère EXACTEMENT {count} repas élaborés, créatifs et gourmands respectant un budget TOTAL max de {budget} € (~{budget/count:.2f} €/repas).
+    Tu es un coach culinaire spécialisé dans les repas étudiants faciles et pas chers. 
+    Génère EXACTEMENT {count} repas gourmands, ultra-simples, rapides (15-20 min max) respectant un budget TOTAL max de {budget} € (~{budget/count:.2f} €/repas).
     Objectif : '{objectif}'.
     Ingrédients du frigo à intégrer : '{frigo}'.
     Exemples produits Carrefour disponibles : {json.dumps(ingredients_dispo, ensure_ascii=False)}
 
-    RÈGLES DE QUALITÉ DES PLATS :
-    - INTERDICTION de proposer des plats trop simples (pas de steak haché seul, pas de pâtes au beurre, pas d'œufs au plat simples).
-    - Propose des recettes travaillées : sauces maison, marinades, mijotés, épices, gratins, woks ou risottos (ex: "Émincé de poulet sauté au curry doux et lait de coco", "Risotto crémeux aux champignons et parmesan", "Parmentier de canard/bœuf aux herbes de Provence").
+    RÈGLES REPAS ÉTUDIANTS :
+    - Fais des plats simples mais gourmands (ex: Wraps poulet-paprika, Quesadillas bœuf/fromage, Pâtes crème-parmesan & dinde, Riz sauté à la sauce soja & œuf, Gratin rapide de coquillettes).
+    - PAS de recettes de chef compliquées (pas de sauces mijotées des heures, pas de marinades complexes, pas d'ustensiles rares).
+    - PAS de recettes tristes (pas de steak haché nature sans sauce ni assaisonnement, pas de riz blanc nature).
     - STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
-    - Fournis un mot-clé très précis en anglais ("keyword_photo") correspondant exactement au visuel du plat (ex: "chicken-curry", "mushroom-risotto", "pasta-carbonara", "beef-stew", "chicken-tikka").
+    - Pour "keyword_photo", choisis STRICTEMENT UN SEUL mot anglais simple parmi cette liste : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza"].
 
     Format JSON attendu :
     {{
       "recettes": [
         {{
           "id": 1,
-          "nom": "Nom gourmand et élaboré du plat",
-          "keyword_photo": "chicken-curry",
-          "temps": "25 min",
-          "prix_estime": 3.50,
+          "nom": "Wrap Poulet Épicé & Cheese",
+          "keyword_photo": "tacos",
+          "temps": "15 min",
+          "prix_estime": 2.80,
           "ingredients": [
-            {{"nom": "Blanc de poulet 300g", "rayon": "Boucherie", "recherche_carrefour": "blanc de poulet"}},
-            {{"nom": "Lait de coco 20cl", "rayon": "Épicerie du monde", "recherche_carrefour": "lait de coco"}}
+            {{"nom": "Tortillas de blé (x4)", "rayon": "Épicerie du monde", "recherche_carrefour": "tortillas"}},
+            {{"nom": "Émincé de poulet 200g", "rayon": "Boucherie", "recherche_carrefour": "poulet"}},
+            {{"nom": "Fromage râpé 100g", "rayon": "Crémerie", "recherche_carrefour": "fromage rape"}}
           ],
-          "instructions": "1. Faire mariner le poulet... 2. Faire revenir les épices...",
-          "macros": {{"calories": 550, "proteines": 42, "glucides": 48, "lipides": 14}}
+          "instructions": "1. Faire revenir le poulet avec un peu d'épices. 2. Garnir la tortilla avec le fromage et réchauffer 2 min à la poêle.",
+          "macros": {{"calories": 520, "proteines": 38, "glucides": 50, "lipides": 14}}
         }}
       ]
     }}
@@ -150,21 +153,23 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
 
 def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
     prompt = f"""
-    Tu es un chef cuisinier. Génère 1 seul plat élaboré pour remplacer '{recette_ancienne.get('nom')}'.
+    Génère 1 seul plat étudiant simple et gourmand pour remplacer '{recette_ancienne.get('nom')}'.
     Budget cible : ~{budget_cible:.2f} €. Objectif : '{objectif}'.
-    STRICTEMENT AUCUN POISSON NI FRUIT DE MER. Pas de plats simplistes (pas de steak haché seul).
+    STRICTEMENT AUCUN POISSON NI FRUIT DE MER. Pas de trucs trop compliqués, juste bon et rapide.
+    "keyword_photo" doit être un seul mot parmi : ["pasta", "chicken", "burger", "steak", "rice", "tacos", "sandwich", "curry", "noodles", "pizza"].
 
     JSON strict :
     {{
-      "nom": "Nouveau plat élaboré",
-      "keyword_photo": "creamy-pasta",
-      "temps": "20 min",
+      "nom": "Pâtes crémeuses au poulet et curry",
+      "keyword_photo": "pasta",
+      "temps": "15 min",
       "prix_estime": {budget_cible},
       "ingredients": [
-        {{"nom": "Pâtes Penne 500g", "rayon": "Épicerie", "recherche_carrefour": "penne"}}
+        {{"nom": "Penne 500g", "rayon": "Épicerie", "recherche_carrefour": "penne"}},
+        {{"nom": "Crème fraîche 20cl", "rayon": "Crémerie", "recherche_carrefour": "creme fraiche"}}
       ],
-      "instructions": "Étape 1...",
-      "macros": {{"calories": 550, "proteines": 35, "glucides": 60, "lipides": 12}}
+      "instructions": "1. Cuire les pâtes. 2. Mélanger la crème et le curry puis ajouter le poulet.",
+      "macros": {{"calories": 550, "proteines": 35, "glucides": 65, "lipides": 12}}
     }}
     """
 
@@ -182,7 +187,7 @@ st.markdown(
     '<p class="main-header">🍳 BudgetGourmet IA</p>', unsafe_allow_html=True
 )
 st.caption(
-    "Planification de repas gastronomiques et accessibles avec tarifs Carrefour et liste de courses."
+    "Recettes simples, rapides et pas chères spécial étudiants — Prix Carrefour & liste de courses."
 )
 
 if not api_key:
@@ -192,7 +197,7 @@ else:
         "✨ Générer mon plan de repas", type="primary", use_container_width=True
     ):
         with st.spinner(
-            f"Création de vos {nb_repas} repas élaborés sur-mesure..."
+            f"Création de vos {nb_repas} repas étudiants simples et gourmands..."
         ):
             try:
                 st.session_state["menu"] = generer_menu_ia(
@@ -224,15 +229,15 @@ if "menu" in st.session_state and st.session_state["menu"]:
         for idx, r in enumerate(recettes):
             with cols[idx % 3]:
                 with st.container(border=True):
-                    # Image dynamique et spécifique au plat
-                    keyword = r.get("keyword_photo", "food")
-                    img_url = f"https://loremflickr.com/600/400/{urllib.parse.quote(keyword)}?lock={idx}"
+                    # Génération d'image ciblée
+                    kw = str(r.get("keyword_photo", "food")).lower().strip()
+                    img_url = f"https://loremflickr.com/600/400/{urllib.parse.quote(kw)}?lock={idx}"
                     st.image(img_url, use_container_width=True)
 
                     st.markdown(f"### {r.get('nom', 'Plat')}")
                     st.markdown(
                         f"<span class='badge-price'>💰 ~{r.get('prix_estime', 0):.2f} €</span> "
-                        f"<span class='badge-time'>⏱️ {r.get('temps', '20 min')}</span>",
+                        f"<span class='badge-time'>⏱️ {r.get('temps', '15 min')}</span>",
                         unsafe_allow_html=True,
                     )
 
@@ -242,7 +247,7 @@ if "menu" in st.session_state and st.session_state["menu"]:
                     )
 
                     if st.button("🔄 Changer ce plat", key=f"swap_{idx}", use_container_width=True):
-                        with st.spinner("Recherche d'un autre plat élaboré..."):
+                        with st.spinner("Recherche d'une alternative facile..."):
                             st.session_state["menu"][idx] = remplacer_une_recette(
                                 r, objectif, budget_max / len(recettes)
                             )
