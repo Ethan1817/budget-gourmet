@@ -12,6 +12,24 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# --- Banque d'images HD fiables par catégorie ---
+BANQUE_IMAGES = {
+    "pasta": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80",
+    "chicken": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80",
+    "burger": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80",
+    "wrap": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80",
+    "tacos": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80",
+    "rice": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80",
+    "curry": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80",
+    "salad": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80",
+    "pizza": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+    "eggs": "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80",
+    "steak": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
+    "noodles": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80",
+    "sandwich": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
+    "default": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+}
+
 # --- CSS Épuré & Thème Sombre ---
 st.markdown(
     """
@@ -117,10 +135,9 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
 
     RÈGLES IMPÉRATIVES :
     1. Le tableau "recettes" doit contenir STRICTEMENT {count} éléments.
-    2. Recettes simples mais gourmandes (wraps, pâtes sauce maison, quesadillas, riz sauté, omelette garnie, gratins rapides). Pas de plats complexes, pas de riz nature triste.
+    2. Recettes simples et gourmandes (wraps, pâtes, quesadillas, riz sauté, omelette garnie, gratins). Pas de plats complexes, pas de riz nature triste.
     3. STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
-    4. "prompt_image_en" : Fournis une description courte en anglais du plat pour un générateur d'images IA (ex: "delicious chicken wrap with sauce", "creamy pasta bowl").
-    5. Instructions concises pour garantir la génération complète des {count} repas.
+    4. "categorie_photo" doit être STRICTEMENT un mot parmi : ["pasta", "chicken", "burger", "wrap", "tacos", "rice", "curry", "salad", "pizza", "eggs", "steak", "noodles", "sandwich"].
 
     Format JSON attendu :
     {{
@@ -128,7 +145,7 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
         {{
           "id": 1,
           "nom": "Wrap Poulet Épicé",
-          "prompt_image_en": "tasty chicken wrap with cheese and sauce",
+          "categorie_photo": "wrap",
           "temps": "15 min",
           "prix_estime": 2.80,
           "ingredients": [
@@ -156,18 +173,19 @@ def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
     Génère 1 seul plat étudiant simple et gourmand pour remplacer '{recette_ancienne.get('nom')}'.
     Budget cible : ~{budget_cible:.2f} €. Objectif : '{objectif}'.
     STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
+    "categorie_photo" parmi : ["pasta", "chicken", "burger", "wrap", "tacos", "rice", "curry", "salad", "pizza", "eggs", "steak", "noodles", "sandwich"].
 
     JSON strict :
     {{
       "nom": "Pâtes crémeuses au poulet",
-      "prompt_image_en": "creamy chicken pasta bowl food photography",
+      "categorie_photo": "pasta",
       "temps": "15 min",
       "prix_estime": {budget_cible},
       "ingredients": [
         {{"nom": "Penne 500g", "rayon": "Épicerie", "recherche_carrefour": "penne"}},
         {{"nom": "Crème fraîche 20cl", "rayon": "Crémerie", "recherche_carrefour": "creme fraiche"}}
       ],
-      "instructions": "Cuire les pâtes. Mélanger la crème et mélanger avec le poulet.",
+      "instructions": "Cuire les pâtes. Mélanger la crème avec le poulet.",
       "macros": {{"calories": 550, "proteines": 35, "glucides": 65, "lipides": 12}}
     }}
     """
@@ -228,10 +246,9 @@ if "menu" in st.session_state and st.session_state["menu"]:
         for idx, r in enumerate(recettes):
             with cols[idx % 3]:
                 with st.container(border=True):
-                    # Génération d'image par IA (Pollinations AI)
-                    prompt_img = r.get("prompt_image_en", r.get("nom", "delicious food"))
-                    prompt_clean = f"appetizing food photo of {prompt_img}, studio lighting, high resolution"
-                    img_url = f"https://image.pollinations.ai/prompt/{urllib.parse.quote(prompt_clean)}?width=600&height=400&nologo=true"
+                    # Sélection de l'image HD
+                    cat = str(r.get("categorie_photo", "default")).lower().strip()
+                    img_url = BANQUE_IMAGES.get(cat, BANQUE_IMAGES["default"])
                     
                     st.image(img_url, use_container_width=True)
 
