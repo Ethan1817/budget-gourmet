@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# --- Banque d'images HD fiables par catégorie ---
+# --- Banque d'images HD par catégorie ---
 BANQUE_IMAGES = {
     "pasta": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80",
     "chicken": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80",
@@ -27,42 +27,70 @@ BANQUE_IMAGES = {
     "steak": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
     "noodles": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80",
     "sandwich": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
-    "default": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+    "default": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80",
 }
 
-# --- CSS Épuré & Thème Sombre ---
+# --- CSS Thème Gastronomique Sombre & Ambré ---
 st.markdown(
     """
 <style>
     .stApp {
-        background-color: #0F172A;
-        color: #F8FAFC;
+        background-color: #0F0E0E;
+        color: #E2E8F0;
+        font-family: 'Inter', sans-serif;
     }
     div[data-testid="stSidebar"] {
-        background-color: #1E293B;
+        background-color: #161515;
+        border-right: 1px solid #2A2828;
     }
     .main-header {
-        font-size: 2.2rem;
+        font-size: 2.6rem;
         font-weight: 800;
-        background: linear-gradient(90deg, #38BDF8, #818CF8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #FFFFFF;
+        letter-spacing: -0.5px;
         margin-bottom: 0px;
     }
+    .main-header span {
+        color: #E07A5F;
+    }
     .badge-price {
-        background-color: #10B981;
+        background-color: #E07A5F;
         color: #FFFFFF;
-        padding: 3px 10px;
-        border-radius: 12px;
-        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 700;
         font-size: 0.85rem;
+        display: inline-block;
     }
     .badge-time {
-        background-color: #334155;
-        color: #CBD5E1;
-        padding: 3px 10px;
-        border-radius: 12px;
+        background-color: #262424;
+        color: #D1D5DB;
+        padding: 4px 12px;
+        border-radius: 20px;
         font-size: 0.85rem;
+        border: 1px solid #3A3636;
+        display: inline-block;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #181717 !important;
+        border: 1px solid #2D2B2B !important;
+        border-radius: 12px !important;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+        border-color: #E07A5F !important;
+    }
+    .stButton>button {
+        border-radius: 8px;
+        font-weight: 600;
+    }
+    button[kind="primary"] {
+        background-color: #E07A5F !important;
+        border: none !important;
+        color: white !important;
+    }
+    button[kind="primary"]:hover {
+        background-color: #C8634B !important;
     }
 </style>
 """,
@@ -135,7 +163,7 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
 
     RÈGLES IMPÉRATIVES :
     1. Le tableau "recettes" doit contenir STRICTEMENT {count} éléments.
-    2. Recettes simples et gourmandes (wraps, pâtes, quesadillas, riz sauté, omelette garnie, gratins). Pas de plats complexes, pas de riz nature triste.
+    2. Recettes simples et gourmandes (wraps, pâtes, quesadillas, riz sauté, omelette garnie, gratins). Pas de plats complexes.
     3. STRICTEMENT AUCUN POISSON NI FRUIT DE MER.
     4. "categorie_photo" doit être STRICTEMENT un mot parmi : ["pasta", "chicken", "burger", "wrap", "tacos", "rice", "curry", "salad", "pizza", "eggs", "steak", "noodles", "sandwich"].
 
@@ -159,12 +187,21 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
     }}
     """
 
-    res = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": prompt}],
-        response_format={"type": "json_object"},
-        max_tokens=8000,
-    )
+    try:
+        res = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            max_tokens=8000,
+        )
+    except Exception:
+        res = client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            max_tokens=8000,
+        )
+
     return json.loads(res.choices[0].message.content).get("recettes", [])
 
 
@@ -191,7 +228,7 @@ def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
     """
 
     res = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"},
         max_tokens=1000,
@@ -201,10 +238,11 @@ def remplacer_une_recette(recette_ancienne, objectif, budget_cible):
 
 # --- En-tête Principal ---
 st.markdown(
-    '<p class="main-header">🍳 BudgetGourmet IA</p>', unsafe_allow_html=True
+    '<p class="main-header">🍳 Budget<span>Gourmet</span> IA</p>',
+    unsafe_allow_html=True,
 )
 st.caption(
-    "Recettes simples, rapides et pas chères spécial étudiants — Prix Carrefour & liste de courses."
+    "Planificateur de repas étudiants : recettes gourmandes, rapides et adaptées à ton budget."
 )
 
 if not api_key:
@@ -213,9 +251,7 @@ else:
     if st.button(
         f"✨ Générer mes {nb_repas} repas", type="primary", use_container_width=True
     ):
-        with st.spinner(
-            f"Génération de vos {nb_repas} repas en cours..."
-        ):
+        with st.spinner(f"Génération de vos {nb_repas} repas en cours..."):
             try:
                 st.session_state["menu"] = generer_menu_ia(
                     produits, objectif, nb_repas, budget_max, vide_frigo
