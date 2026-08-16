@@ -195,8 +195,9 @@ def generer_menu_ia(liste_produits, objectif, count, budget, frigo=""):
             max_tokens=8000,
         )
     except Exception:
+        # Secours sur le modèle 70b actif si le 8b rencontre un souci
         res = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
             max_tokens=8000,
